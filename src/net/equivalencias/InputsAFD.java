@@ -8,7 +8,6 @@ import javax.swing.*;
 
 public class InputsAFD extends JFrame implements ActionListener {
 	AFD a = new AFD();
-	String E, K, s, F;
 	private JLabel lE, lK, ls, lF;
 	public JLabel titulo;
 	private JTextField tE, tK, ts, tF;
@@ -72,7 +71,26 @@ public class InputsAFD extends JFrame implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e){
-		
+		String aux = "";
+		int c=0;
+		SepararStrings sx = new SepararStrings();
+		if(e.getSource()==boton){
+			aux = tE.getText();
+			c=sx.contar(aux);
+			a.setE(sx.Extraer(c, aux));
+			
+			aux = tK.getText();
+			c=sx.contar(aux);
+			a.setK(sx.Extraer(c,aux));
+			
+			aux = tF.getText();
+			c=sx.contar(aux);
+			a.setF(sx.Extraer(c,aux));
+			
+			a.setS(ts.getText());
+			this.dispose();
+			JOptionPane.showMessageDialog(null, "Autómata Ingresado");
+		}
 	}
 
 }
