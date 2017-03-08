@@ -29,7 +29,7 @@ public class InputsAFD extends JFrame implements ActionListener {
 	
 	public void Form(){
 		setLayout(null);
-		titulo = new JLabel("Complete la definición formal del AFD:");
+		titulo = new JLabel();
 		titulo.setBounds(10, 2, 500, 25);
 		titulo.setHorizontalAlignment(JLabel.CENTER);
 		titulo.setFont(new Font("Impact", Font.BOLD, 20));
