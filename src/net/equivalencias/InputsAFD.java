@@ -89,7 +89,8 @@ public class InputsAFD extends JFrame implements ActionListener {
 			
 			a.setS(ts.getText());
 			this.dispose();
-			JOptionPane.showMessageDialog(null, "Autómata Ingresado");
+			Delta d = new Delta(a);
+			d.setVisible(true);
 		}
 	}
 
