@@ -15,7 +15,7 @@ public class PruebaEquivalencias {
 	String auxF1 = "q0";
 	String auxF2 = "r0";
 	String auxS1 = "q0";
-	String auxS2 = "z0";
+	String auxS2 = "r0";
 	int c=0;
 	int alpha=0;
 	int k1=0;
@@ -23,6 +23,13 @@ public class PruebaEquivalencias {
 	int F1=0;
 	int F2=0;
 	SepararStrings sx = new SepararStrings();
+	int tem1=0, tem2=0, M1 = 10, M2 = 10;
+	String Trans[][] = new String [M1][M2];//transiciones
+	String Equivalentes ="";
+	int n=0, m=0, actual=0;//Apuntadores donde n es el numero de pareja de transiciones, m es la transicion para M1 y M2 para los estados
+	//y actual es el par para n de comparaciones actualmente; sugerencia utilizar arreglo dinamico 
+	int posiak=0;
+	
 	
 	public void InputAFD(){
 		alpha=sx.contar(auxE);
@@ -35,145 +42,136 @@ public class PruebaEquivalencias {
 		a.setK(sx.Extraer(k1, auxK1));
 		System.out.println(k1);
 		for (int x=0; x<k1; x++) {
-		//JOptionPane.showMessageDialog(null,"Estados Aut1 "+a.getK()[x]);	
+		JOptionPane.showMessageDialog(null,"Estados Aut1 "+a.getK()[x]);	
 		}
 		k2=sx.contar(auxK2);
 		e.setK(sx.Extraer(k2, auxK2));
 		System.out.println(k2);
 		for (int x=0; x<k2; x++) {
-		//JOptionPane.showMessageDialog(null,"Estados Aut2 "+e.getK()[x]);	
+		JOptionPane.showMessageDialog(null,"Estados Aut2 "+e.getK()[x]);	
 		}
 		F1=sx.contar(auxF1);
-		e.setF(sx.Extraer(F1, auxF1));
+		a.setF(sx.Extraer(F1, auxF1));
 		System.out.println(F1);
-		for (int x=0; x<c; x++) {
-		//JOptionPane.showMessageDialog(null,"Estados Finales1 "+a.getF()[x]);	
+		for (int x=0; x<F1; x++) {
+		JOptionPane.showMessageDialog(null,"Estados Finales1 "+a.getF()[x]);	
 		}
 		F2=sx.contar(auxF2);
 		e.setF(sx.Extraer(F2, auxF2));
 		System.out.println(F2);
-		for (int x=0; x<c; x++) {
-		//JOptionPane.showMessageDialog(null,"Estados Finales2 "+e.getF()[x]);	
+		for (int x=0; x<F2; x++) {
+		JOptionPane.showMessageDialog(null,"Estados Finales2 "+e.getF()[x]);	
 		}
 		a.setS(auxS1);
-		//JOptionPane.showMessageDialog(null,"Estado inicial1 "+a.getS());	
+		JOptionPane.showMessageDialog(null,"Estado inicial1 "+a.getS());	
 		e.setS(auxS2);
-		//JOptionPane.showMessageDialog(null,"Estado inicial2 "+e.getS());
+		JOptionPane.showMessageDialog(null,"Estado inicial2 "+e.getS());
 				
 	}
 	
-	
 	public void LlenarDelta() {
-		//c=sx.contar(auxE);
 		c=2;
-		String ad [][]= new String [(k1+1)][(alpha+1)];
+		String ad [][]= new String [(k1)][(alpha)];//+1+1
 		String ad2 [][]=new String [k2][alpha];
 		System.out.println(k1+" "+alpha);
 		for(int x=0; x<k1; x++){
 			for(int y=0; y<alpha; y++){
-				ad[x][y]=JOptionPane.showInputDialog("Por "+a.getK()[x]+"con "+a.getE()[y]+ " Dime hacia que estado va:");
+				ad[x][y]=JOptionPane.showInputDialog("Por "+a.getK()[x]+" con "+a.getE()[y]+ " Dime hacia que estado va:");
 				a.setDelta(ad);
 			}
 		}
 		for(int x=0; x<k2; x++){
 			for(int y=0; y<alpha; y++){
-				ad2[x][y]=JOptionPane.showInputDialog("Por "+e.getK()[x]+"con "+a.getE()[y]+ " Dime hacia que estado va:");
+				ad2[x][y]=JOptionPane.showInputDialog("Por "+e.getK()[x]+" con "+a.getE()[y]+ " Dime hacia que estado va:");
 				e.setDelta(ad2);
 			}
 		}	
 	}
 	
-	
-	public void Paso1(){//nombre provisional
-		String Equivalentes ="";
-		boolean sonfinales1=true;
-		boolean sonfinales2=true;
+	public void ComparacionAFD (){// en este metodo se comprueban que sean finales o no finales los estados de momento funciona solo con los iniciales
+		int sonfinales1=1;
+		int sonfinales2=1;
 		for(int x=0; x<F1; x++){
-			if(a.getS()!=a.getF()[x]){
-				sonfinales1=false;
+			System.out.println("llega al paso 1"+a.getS()+a.getF()[x]);
+			if(a.getS().equals(a.getF()[x])){
+				sonfinales1=2;
 				break;
 			}
-			if(e.getS()!=e.getF()[x]){
-				sonfinales2=false;
-				break;
-			}	
-			if(sonfinales1==sonfinales2){
-				//continua comparando se va al paso 2
-			}else{
-				//ya no compara no son equivalentes
-			}
-			if(a.getS()!=a.getF()[x]&&e.getS()!=e.getF()[x]){
-				//continua comparando se va al paso 2
-			}else{
-				//ya no compara no son equivalentes
-			}
-			
 		}
+		for(int x=0; x<F2; x++){
+			System.out.println("llega al paso 2"+e.getS()+e.getF()[x]);
+			if(e.getS().equals(e.getF()[x])){
+				sonfinales2=2;
+				break;
+			}
+		}
+			if(sonfinales1==sonfinales2){
+				
+				System.out.println("ambos son finales"+sonfinales1+sonfinales2);
+			}else{
+				System.out.println("no son finales"+sonfinales1+sonfinales2);
+			}
+			//if(a.getS()!=a.getF()[x]&&e.getS()!=e.getF()[x]){
+				//continua comparando se va al paso 2
+			//}else{
+				//ya no compara no son equivalentes
+			//}
 	}
-	public void Paso2(){//nombre provisional
-		int tem1=0, tem2=0, M1 = 10, M2 = 10;
-		int ini=0, tope=0;
-		String Trans[][] = new String [M1][M2];//transiciones
-		
+	public void InsertarTrans (){// en este metodo se insertan las transiciones 
 		for(int x=0; x<k1; x++){//buscando inicial en K1
-			if(a.getS()==a.getK()[x]){
-			
-			Trans[0][0]=a.getK()[x];
+			if(a.getS().equals(a.getK()[x])){
+				Trans[n][m]=a.getK()[x];
+				m++;
 			}
 		}
 		for(int x=0; x<k2; x++){//buscando inicial para K2
-			if(e.getS()==e.getK()[x]){
-			tem2=1;	
-			Trans[0][1]=e.getK()[x];
+			if(e.getS().equals(e.getK()[x])){
+				Trans[n][m]=e.getK()[x];
 			}
 		}
-		ini=0;
+		System.out.println("Para trans 1: "+Trans[0][0]+" Para trans2 :"+Trans[0][1]);
+		m=0;
+	}
+	public void ObtenerTrans (){// En este metodo se busca obtener las transiciones para los estados esta incompleto actualmente
+		
 		for(int x=0; x<k1; x++){
-			if(Trans[tem1][tem2-1]==a.getK()[x]){
-				for(int y=0; y<alpha; y++){
-		//			if(a.getDelta()[x][y]==Trans[][]&&e.getDelta()[x][y+1]==){
-					
-					}
+			if(Trans[actual][m].equals(a.getK()[x])){
+				posiak=x;//ahora tenemos posicion de k en m y ahora podemos usar delta
+				for(int y=0; y<alpha; y++){//en cada Transicion agrega los estados nuevos al arreglo Transiciones
+					//if(Trans[n][y].equals(a.getDelta()[posiak][y])||Trans[n][y].equals(a.getDelta()[posiak][y])){
+						//=a.getDelta()[posiak][y];
+					//}
 				}		
 			}
-			
 		}
-		
+		for(int x=0; x<k2; x++){
+			if(Trans[actual][m].equals(e.getK()[x])){
+				for(int y=0; y<alpha; y++){//en cada Transicion agrega los estados nuevos al arreglo Transiciones
+					n++;
+					if(e.getF()[0].equals(e.getDelta()[posiak][y])){
+						Trans[n][y]=e.getDelta()[posiak][y];
+					}
+				}
+			}
+		}
+		for(int x=0; x<3; x++){
+			for(int y=0; y<2; y++){
+				System.out.println("Para M"+y+": "+Trans[x][y]);
+			}	
+		}
+	}	
+	
 	public void busqueda(){
 		
 	}
-	
-	public void ComparacionAFD(){
-		String Equivalentes ="";
-		boolean sonfinales1=true;
-		boolean sonfinales2=true;
-		for(int x=0; x<F1; x++){
-			if(a.getS()!=a.getF()[x]){
-				sonfinales1=false;
-				break;
-			}
-			if(e.getS()!=e.getF()[x]){
-				sonfinales2=false;
-				break;
-			}	
-			if(sonfinales1==sonfinales2){
-				//continua comparando
-			}else{
-				//ya no compara no son equivalentes
-			}
-			if(a.getS()!=a.getF()[x]&&e.getS()!=e.getF()[x]){
-			//continua comparando
-			}else{
-			//ya no compara no son equivalentes
-			}
-		}	
-	}
-	
 	
 	public static void main (String args[]){
 		PruebaEquivalencias x = new PruebaEquivalencias ();
 		x.InputAFD();
 		x.LlenarDelta();
+		x.ComparacionAFD();
+		x.InsertarTrans();
+		x.ObtenerTrans();
 	}
 
 }
