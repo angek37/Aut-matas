@@ -1,35 +1,38 @@
 package net.equivalencias;
 
 import java.awt.*;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import javax.swing.*;
 import net.encapsulados.AFD;
 
-public class Delta extends JFrame implements ItemListener{
+public class Delta extends JFrame implements ActionListener{
 	private JLabel titulo;
 	private JLabel K, E, d;
 	private JLabel[] lK, lE;
 	private JComboBox[] cD;
 	private JButton set;
 	int f = 0;
+	String delta[][];
+	AFD afd;
 	
 	public Delta(AFD a){
 		super();
-		f=Transiciones(a);
+		afd = a;
+		f=Transiciones();
 		WindowSetup();
-		Form(a);
+		Form();
+		a=afd;
 	}
 	
 	public void WindowSetup(){
-		this.setBounds(0,0,250,300);
+		this.setBounds(0,0,390,300);
 		this.setLocationRelativeTo(getContentPane());
 		this.setResizable(true);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
 		this.setTitle("Tabla de transiciones");
 	}
 	
-	public void Form(AFD afd){
+	public void Form(){
 		setLayout(null);
 		titulo = new JLabel("Complete la tabla de transiciones");
 		titulo.setBounds(5, 2, 250, 25);
@@ -66,27 +69,36 @@ public class Delta extends JFrame implements ItemListener{
 			lE[x].setBounds(80, (x+1)*45, 50, 15);
 			add(lE[x]);
 		}
+		set = new JButton("Terminar");
+		set.setBounds(230, 30, 150, 30);
+		add(set);
+        set.addActionListener(this);
 	}
 	
-	public int Transiciones(AFD afd){
+	public int Transiciones(){
 		int filas = (afd.getE().length*afd.getK().length);
-		String d[][] = new String[3][filas];
+		delta = new String[3][filas];
 		int c=0;
 		for(int a = 0; a<filas;){
 			for(int b = 0; b<afd.getE().length;b++){
-				d[0][a]=afd.getK()[c];
-				d[1][a]=afd.getE()[b];
+				delta[0][a]=afd.getK()[c];
+				delta[1][a]=afd.getE()[b];
 				a++;
 			}
 			c++;
 		}
-		afd.setDelta(d);
+		afd.setDelta(delta);
 		return filas;
 	}
 
-	public void itemStateChanged(ItemEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void actionPerformed(ActionEvent e) {
+		 if (e.getSource()==set){
+			 for(int x = 0;x<cD.length;x++){
+				 delta[2][x]=(String)cD[x].getSelectedItem();
+			 }
+			 afd.setDelta(delta);
+			 this.dispose();
+			 JOptionPane.showMessageDialog(null, "Autómata Ingresado Correctamente");
+		 }
 	}
-	
 }

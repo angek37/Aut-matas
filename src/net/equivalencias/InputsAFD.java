@@ -19,6 +19,7 @@ public class InputsAFD extends JFrame implements ActionListener {
 		Form();
 	}
 	
+	
 	public void WindowSetup(){
 		this.setBounds(0,0,520,300);
 		this.setLocationRelativeTo(getContentPane());

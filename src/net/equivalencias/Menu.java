@@ -1,6 +1,9 @@
 package net.equivalencias;
 
 import javax.swing.*;
+
+import net.encapsulados.AFD;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -53,31 +56,32 @@ public class Menu extends JFrame implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e){
-		InputsAFD a1 = new InputsAFD();
-		InputsAFD a2 = new InputsAFD();
+		AFD a1 = new AFD();
+		InputsAFD i1 = new InputsAFD();
+		InputsAFD i2 = new InputsAFD();
+		
+		
 		
 		double l = 0.0;
 		
 		if(e.getSource()==fi){
-			a1.setVisible(true);
-			a1.titulo.setText("Complete la definición formal del AFD (M1):");
+			i1.setVisible(true);
+			i1.titulo.setText("Complete la definición formal del AFD (M1):");
 			lfi.setText("Registrado");
 			lfi.setForeground(Color.GREEN);
 			l = l + 0.5;
 		}
 		if(e.getSource()==se){
-			a2.setVisible(true);
-			a2.titulo.setText("Complete la definición formal del AFD (M2):");
+			i2.setVisible(true);
+			i2.titulo.setText("Complete la definición formal del AFD (M2):");
 			lse.setText("Registrado");
 			lse.setForeground(Color.GREEN);
 			l = l + 0.5;
 		}
 		if(e.getSource()==r){
-			if(l != 1.0){
-				JOptionPane.showMessageDialog(null, "Es necesario completar la definición de ambos AFD");
-			}else{
-				// Aquí ira el método para comparar ambos autómatas
-			}
+			System.out.println(a1);
+			System.out.println(a1.getE());
+			System.out.print("------------------\n");
 		}
 	}
 
