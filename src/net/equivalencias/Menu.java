@@ -70,10 +70,7 @@ public class Menu extends JFrame implements ActionListener{
 			lse.setForeground(Color.GREEN);
 		}
 		if(e.getSource()==r){
-			System.out.println(i1.a);
-			System.out.println(i1.a.getE()[0]);
-			System.out.print("------------------\n");
-			System.out.println(i1.a.getDelta()[2][0]);
+			Comparison c = new Comparison(i1.a, i2.a);
 		}
 	}
 
