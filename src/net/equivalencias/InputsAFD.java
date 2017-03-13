@@ -8,10 +8,10 @@ import javax.swing.*;
 
 public class InputsAFD extends JFrame implements ActionListener{
 	AFD a = new AFD();
-	JLabel lE, lK, ls, lF;
-	JLabel titulo;
-	JTextField tE, tK, ts, tF;
-	JButton boton;
+	private JLabel lE, lK, ls, lF;
+	public JLabel titulo;
+	private JTextField tE, tK, ts, tF;
+	public JButton boton;
 	Delta d;
 	
 	public InputsAFD(){
@@ -72,7 +72,7 @@ public class InputsAFD extends JFrame implements ActionListener{
 		boton.addActionListener(this);
 	}
 	
-	public void actionPerformed (ActionEvent e){
+	public void actionPerformed(ActionEvent e){
        	 String aux = "";
     		int c=0;
     		SepararStrings sx = new SepararStrings();
@@ -90,10 +90,9 @@ public class InputsAFD extends JFrame implements ActionListener{
     			a.setF(sx.Extraer(c,aux));
     			
     			a.setS(ts.getText());
-    			InputsAFD.this.dispose();
+    			this.dispose();
     			d = new Delta(a);
-    			d.setVisible(true);
+				d.setVisible(true);
     		}
 	}
-	
 }
