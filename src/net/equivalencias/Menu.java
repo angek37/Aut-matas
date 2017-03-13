@@ -1,15 +1,14 @@
 package net.equivalencias;
 
 import javax.swing.*;
-
-import net.encapsulados.AFD;
-
 import java.awt.*;
 import java.awt.event.*;
 
 public class Menu extends JFrame implements ActionListener{
 	private JLabel titulo, lfi, lse;
 	private JButton fi, se, r;
+	InputsAFD i1 = new InputsAFD();
+	InputsAFD i2 = new InputsAFD();
 	
 	public Menu(){
 		super();
@@ -56,31 +55,23 @@ public class Menu extends JFrame implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e){
-		AFD a1 = new AFD();
-		InputsAFD i1 = new InputsAFD();
-		InputsAFD i2 = new InputsAFD();
-		
-		
-		
-		double l = 0.0;
+
 		
 		if(e.getSource()==fi){
 			i1.setVisible(true);
 			i1.titulo.setText("Complete la definición formal del AFD (M1):");
 			lfi.setText("Registrado");
 			lfi.setForeground(Color.GREEN);
-			l = l + 0.5;
 		}
 		if(e.getSource()==se){
 			i2.setVisible(true);
 			i2.titulo.setText("Complete la definición formal del AFD (M2):");
 			lse.setText("Registrado");
 			lse.setForeground(Color.GREEN);
-			l = l + 0.5;
 		}
 		if(e.getSource()==r){
-			System.out.println(a1);
-			System.out.println(a1.getE());
+			System.out.println(i1.a);
+			System.out.println(i1.a.getE()[0]);
 			System.out.print("------------------\n");
 		}
 	}

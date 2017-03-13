@@ -6,12 +6,13 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-public class InputsAFD extends JFrame implements ActionListener {
+public class InputsAFD extends JFrame implements ActionListener{
 	AFD a = new AFD();
-	private JLabel lE, lK, ls, lF;
-	public JLabel titulo;
-	private JTextField tE, tK, ts, tF;
-	public JButton boton;
+	JLabel lE, lK, ls, lF;
+	JLabel titulo;
+	JTextField tE, tK, ts, tF;
+	JButton boton;
+	Delta d;
 	
 	public InputsAFD(){
 		super();
@@ -30,7 +31,7 @@ public class InputsAFD extends JFrame implements ActionListener {
 	
 	public void Form(){
 		setLayout(null);
-		titulo = new JLabel();
+		titulo = new JLabel("");
 		titulo.setBounds(10, 2, 500, 25);
 		titulo.setHorizontalAlignment(JLabel.CENTER);
 		titulo.setFont(new Font("Impact", Font.BOLD, 20));
@@ -71,28 +72,28 @@ public class InputsAFD extends JFrame implements ActionListener {
 		boton.addActionListener(this);
 	}
 	
-	public void actionPerformed(ActionEvent e){
-		String aux = "";
-		int c=0;
-		SepararStrings sx = new SepararStrings();
-		if(e.getSource()==boton){
-			aux = tE.getText();
-			c=sx.contar(aux);
-			a.setE(sx.Extraer(c, aux));
-			
-			aux = tK.getText();
-			c=sx.contar(aux);
-			a.setK(sx.Extraer(c,aux));
-			
-			aux = tF.getText();
-			c=sx.contar(aux);
-			a.setF(sx.Extraer(c,aux));
-			
-			a.setS(ts.getText());
-			this.dispose();
-			Delta d = new Delta(a);
-			d.setVisible(true);
-		}
+	public void actionPerformed (ActionEvent e){
+       	 String aux = "";
+    		int c=0;
+    		SepararStrings sx = new SepararStrings();
+    		if(e.getSource()==boton){
+    			aux = tE.getText();
+    			c=sx.contar(aux);
+    			a.setE(sx.Extraer(c, aux));
+    			
+    			aux = tK.getText();
+    			c=sx.contar(aux);
+    			a.setK(sx.Extraer(c,aux));
+    			
+    			aux = tF.getText();
+    			c=sx.contar(aux);
+    			a.setF(sx.Extraer(c,aux));
+    			
+    			a.setS(ts.getText());
+    			InputsAFD.this.dispose();
+    			d = new Delta(a);
+    			d.setVisible(true);
+    		}
 	}
-
+	
 }
