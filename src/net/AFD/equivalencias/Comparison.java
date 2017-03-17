@@ -53,6 +53,13 @@ public class Comparison {
 			aux[1][x] = a.getDelta()[2][x];
 		}
 		a.setDelta(aux);
+		l = (e.getE().length*e.getK().length);
+		String aux2[][] = new String[2][l];
+		for(int x = 0; x<l; x++){
+			aux2[0][x] = e.getDelta()[0][x];
+			aux2[1][x] = e.getDelta()[2][x];
+		}
+		e.setDelta(aux2);
 	}
 	
 	public void InputAFD(AFD a, AFD e){
