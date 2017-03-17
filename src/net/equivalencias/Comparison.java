@@ -1,35 +1,61 @@
 package net.equivalencias;
 
-import net.encapsulados.*;
+
 import javax.swing.*;
+
+import net.encapsulados.*;
 
 public class Comparison {
 	
-//	AFD2 a = new AFD2();
-//	AFD2 e = new AFD2();
-	
-	public Comparison(AFD a, AFD e){
-		super();
-//		InputAFD();
-//		LlenarDelta();
-		ComparacionAFD(a, e);
-		InsertarTrans(a, e);
-		ObtenerTransIni(a, e);
+	public Comparison(AFD a,AFD e){
+		InputAFD(a,e);
+		ComparacionAFD(a,e);
+		InsertarTrans(a,e);
+		ObtenerTransIni(a,e);
+		print();
 	}
-
+	
+	//Captura
+	/*
+	String auxK1 = "q0,q1,q2";
+	String auxK2 = "r0,r1";
+	String auxE = "a,b";
+	String auxF1 = "q0,q2";
+	String auxF2 = "r0";
+	String auxS1 = "q0";
+	String auxS2 = "r0";
+	*/
+	
+	
+	
 	int alpha=0;
 	int k1=0;
 	int k2=0;
 	int F1=0;
 	int F2=0;
-	int tem1=0, tem2=0, M1 = 10, M2 = 10;
+	SepararStrings sx = new SepararStrings();
+	int tem1=0, tem2=0, M1 = 150, M2 = 30;
 	String Trans[][] = new String [M1][M2];//transiciones
 	String Equivalentes ="";
 	int n=0, m=0, actual=0;//Apuntadores donde n es el numero de pareja de transiciones, m es la transicion para M1 y M2 para los estados
 	//y actual es el par para n de comparaciones actualmente; sugerencia utilizar arreglo dinamico 
 	String TransM1="", TransM2="";
 	int tope=0;
-
+	int ini1=0;
+	int ini2=0;
+	boolean insertar = true;
+	int parar=0;
+	
+	
+	public void InputAFD(AFD a, AFD e){
+		alpha=a.getE().length;
+		k1=a.getK().length;
+		k2=e.getK().length;
+		F1=a.getF().length;
+		F2=e.getF().length;
+				
+	}
+	
 	
 	public void ComparacionAFD (AFD a, AFD e){// en este metodo se comprueban que sean finales o no finales los estados de momento funciona solo con los iniciales
 
@@ -47,17 +73,14 @@ public class Comparison {
 				break;
 			}
 		}
-			if(sonfinales1==sonfinales2){
-				
-				//System.out.println("ambos son finales"+sonfinales1+sonfinales2);
-			}else{
-				//System.out.println("no son finales"+sonfinales1+sonfinales2);
-			}
-			//if(a.getS()!=a.getF()[x]&&e.getS()!=e.getF()[x]){
-				//continua comparando se va al paso 2
-			//}else{
-				//ya no compara no son equivalentes
-			//}
+		if(sonfinales1==sonfinales2){
+			Equivalentes="Son Equivalentes";
+			
+		}else{
+			Equivalentes="No Son Equivalentes";
+			//System.out.println("son finales"+sonfinales1+sonfinales2);
+			print();
+		}
 	}
 	
 	public void InsertarTrans (AFD a, AFD e){// en este metodo se insertan las transiciones para los estados iniciales
@@ -79,8 +102,7 @@ public class Comparison {
 	
 	public void ObtenerTransIni (AFD a, AFD e){
 		
-			int ini1=0;
-			int ini2=0;
+			while(insertar==true){
 			int j=0;	
 			int k=0;
 			for(int x=0; x<k1; x++){
@@ -99,35 +121,79 @@ public class Comparison {
 				System.out.println("Para insertar a M1: "+TransM1);
 				TransM2=e.getDelta()[k][y];
 				System.out.println("Para insertar a M2: "+TransM2);
-				BusquedaInsertar();
+				BusquedaInsertar(a, e);
 			}
+			ini1++;
+			ini2=0;
+		}	
 	}
 	
-	public void BusquedaInsertar(){//Busqueda para insertar 
-		boolean insertar = true;
+	public void BusquedaInsertar(AFD a, AFD e){//Busqueda para insertar 
 		for(int x=0; x<tope; x++){//Trans.length
 			for(int y=0; y<(alpha+1); y++){
-				while(TransM1.equals(Trans[x][y])!=TransM2.equals(Trans[x][y+1])){//mientras los estados sean diferentes a los que estan en la tabla insertar
-					//no se inserta
-					//Falta verificar que no sea final
+				if(TransM1.equals(Trans[x][y])){//mientras los estados sean diferentes a los que estan en la tabla insertar
+					if(TransM2.equals(Trans[x][y+1])){
+					parar++;
+					System.out.println("Entro a falso con "+TransM1+" "+TransM2);
+						if(parar==3){
+							print();
+						}
 					insertar = false;
 					break;
+					}
 				}
 			}
 		}
-		if(insertar = true){
+		if(insertar == true){
+			ComparacionAFD2(a, e);
 			Trans[n][m]=TransM1;
 			m++;
 			Trans[n][m]=TransM2;
+			if(parar>0){
+			parar=0;
+			}
+			n++;//aumenta el numero de transiciones en 1
 		}
-		n++;//aumenta el numero de transiciones en 1
+		insertar=true;
 		m=0;//vuelve al estado inicial en el alpha para insertar
-		//imprimir tabala de estados
+		tope++;//imprimir tabala de estados
 		for(int x=0; x<n; x++){
 			for(int y=0; y<alpha; y++){
 				System.out.println("Tabla: "+Trans[x][y]);
 			}
 		}
+		System.out.println("parar= "+parar);
+
 	}
+	public void ComparacionAFD2 (AFD a, AFD e){// en este metodo se comprueban que sean finales o no finales los estados de momento funciona solo con los iniciales
+
+		int sonfinales1=1;
+		int sonfinales2=1;
+		
+		for(int x=0; x<F1; x++){
+			if(TransM1.equals(a.getF()[x])){
+				sonfinales1=2;
+				break;
+			}
+		}
+		for(int x=0; x<F2; x++){
+			if(TransM2.equals(e.getF()[x])){
+				sonfinales2=2;
+				break;
+			}
+		}
+			if(sonfinales1==sonfinales2){
+				Equivalentes="Son Equivalentes";
+				
+			}else{
+				Equivalentes="No Son Equivalentes";
+				print();
+			}
+	}
+	public void print(){
+		JOptionPane.showMessageDialog(null, "Los automatas: "+Equivalentes);
+		System.exit(0);
+	}
+	
 
 }
