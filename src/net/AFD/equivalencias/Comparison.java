@@ -2,17 +2,16 @@ package net.AFD.equivalencias;
 
 
 import javax.swing.*;
-
 import net.encapsulados.*;
 
 public class Comparison {
 	
 	public Comparison(AFD a,AFD e){
+		Patch(a,e);
 		InputAFD(a,e);
 		ComparacionAFD(a,e);
 		InsertarTrans(a,e);
 		ObtenerTransIni(a,e);
-		print();
 	}
 	
 	//Captura
@@ -46,6 +45,15 @@ public class Comparison {
 	boolean insertar = true;
 	int parar=0;
 	
+	public void Patch(AFD a, AFD e){
+		int l = (a.getE().length*a.getK().length);
+		String aux[][] = new String[2][l];
+		for(int x = 0; x<l; x++){
+			aux[0][x] = a.getDelta()[0][x];
+			aux[1][x] = a.getDelta()[2][x];
+		}
+		a.setDelta(aux);
+	}
 	
 	public void InputAFD(AFD a, AFD e){
 		alpha=a.getE().length;
@@ -53,7 +61,6 @@ public class Comparison {
 		k2=e.getK().length;
 		F1=a.getF().length;
 		F2=e.getF().length;
-				
 	}
 	
 	
@@ -119,7 +126,6 @@ public class Comparison {
 			for(int y=0; y<alpha; y++){//obteniendo estado en trans
 				TransM1=a.getDelta()[j][y];
 				System.out.println("Para insertar a M1: "+TransM1);
-				TransM2=e.getDelta()[k][y];
 				System.out.println("Para insertar a M2: "+TransM2);
 				BusquedaInsertar(a, e);
 			}
