@@ -1,8 +1,9 @@
-package net.equivalencias;
+package net.AFD.equivalencias;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import net.AFD.interfaces.*;
 
 public class Menu extends JFrame implements ActionListener{
 	private JLabel titulo, lfi, lse;
@@ -70,7 +71,7 @@ public class Menu extends JFrame implements ActionListener{
 			lse.setForeground(Color.GREEN);
 		}
 		if(e.getSource()==r){
-			Comparison c = new Comparison(i1.a, i2.a);
+			Comparison c = new Comparison(i1.getAFD(), i2.getAFD());
 		}
 	}
 

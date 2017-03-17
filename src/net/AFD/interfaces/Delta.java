@@ -1,4 +1,4 @@
-package net.equivalencias;
+package net.AFD.interfaces;
 
 import java.awt.*;
 import java.awt.event.*;

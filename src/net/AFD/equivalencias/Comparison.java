@@ -1,4 +1,4 @@
-package net.equivalencias;
+package net.AFD.equivalencias;
 
 
 import javax.swing.*;

@@ -1,4 +1,4 @@
-package net.equivalencias;
+package net.AFD.interfaces;
 
 import net.encapsulados.*;
 import java.awt.*;
@@ -94,5 +94,9 @@ public class InputsAFD extends JFrame implements ActionListener{
     			d = new Delta(a);
 				d.setVisible(true);
     		}
+	}
+	
+	public AFD getAFD(){
+		return a;
 	}
 }
