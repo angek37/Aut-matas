@@ -28,8 +28,12 @@ public class Delta extends JFrame{
             public void actionPerformed (ActionEvent e)
             {
             	if (e.getSource()==set){
-       			 for(int x = 0;x<cD.length;x++){
-       				 delta[2][x]=(String)cD[x].getSelectedItem();
+            	int z = 0;
+       			for(int x=0; x<a.getK().length; x++){
+            		for(int y=0; y<a.getE().length; y++){
+            			delta[x][y]=(String)cD[z].getSelectedItem();
+            			z++;
+            		}
        			 }
        			 a.setDelta(delta);
        			 Delta.this.dispose();
@@ -88,7 +92,7 @@ public class Delta extends JFrame{
 	
 	public int Transiciones(AFD a){
 		int filas = (a.getE().length*a.getK().length);
-		delta = new String[3][filas];
+		delta = new String[20][filas];
 		int c=0;
 		for(int x = 0; x<filas;){
 			for(int b = 0; b< a.getE().length;b++){
