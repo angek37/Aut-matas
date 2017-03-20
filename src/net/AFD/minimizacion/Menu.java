@@ -52,7 +52,8 @@ public class Menu extends JFrame implements ActionListener{
 			l.setForeground(Color.GREEN);
 		}
 		if(e.getSource()==r){
-			System.out.print("E: "+afd.getAFD().getE()[0]+"\nDelta: "+afd.getAFD().getDelta()[2][0]);
+			Impresiones pr = new Impresiones(afd.getAFD());
+			//Combinaciones c = new Combinaciones(afd.getAFD());
 		}
 	}
 

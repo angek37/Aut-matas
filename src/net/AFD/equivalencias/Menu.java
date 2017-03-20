@@ -71,7 +71,7 @@ public class Menu extends JFrame implements ActionListener{
 			lse.setForeground(Color.GREEN);
 		}
 		if(e.getSource()==r){
-			Comparison c = new Comparison(i1.getAFD(), i2.getAFD());
+			//Comparacion c = new Comparacion(i1.getAFD(), i2.getAFD());
 		}
 	}
 
