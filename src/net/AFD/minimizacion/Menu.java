@@ -29,7 +29,7 @@ public class Menu extends JFrame implements ActionListener{
 		titulo.setBounds(10, 10, 480, 50);
 		titulo.setFont(new Font("Impact", Font.BOLD, 16));
 		add(titulo);
-		in = new JButton("Primer autómata");
+		in = new JButton("Ingresar el autómata");
 		in.setBounds(10, 70, 220, 50);
 		add(in);
 		in.addActionListener(this);
@@ -52,7 +52,7 @@ public class Menu extends JFrame implements ActionListener{
 			l.setForeground(Color.GREEN);
 		}
 		if(e.getSource()==r){
-			Impresiones pr = new Impresiones(afd.getAFD());
+			Minimiza M = new Minimiza(afd.getAFD());
 			//Combinaciones c = new Combinaciones(afd.getAFD());
 		}
 	}

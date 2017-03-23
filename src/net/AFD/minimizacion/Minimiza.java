@@ -13,16 +13,18 @@ public class Minimiza {
 	
 	public void Process(AFD a, int c){
 		deleted = new String[c];
-		boolean d = true;
+		boolean d;
 		for(int x = 0; x < c; x++){
+			d = true;
 			for(int y = 0; y < c; y++){
-				if(starters[1][x] == deleted[y]){
+				if(starters[1][x] == deleted[y] || starters[0][x] == deleted[y]){
 					d = false;
 				}
 			}
 			if(Compatibles(a, starters[0][x], starters[1][x]) && d){
 				if(Table(a, starters[0][x], starters[1][x])){
 					deleted[x] = starters[1][x];
+					System.out.println("Borrado: "+deleted[x]);
 					DeleteK(a, starters[0][x] ,starters[1][x]);
 				}
 			}
@@ -56,8 +58,8 @@ public class Minimiza {
 		int l = afd.getE().length*2;
 		boolean r=false;
 		boolean keep = true;
-		String[][] t = new String[l+2]/*Columna*/[10]/*Fila*/;
-		String[][] pares = new String[2][100];
+		String[][] t = new String[l+2]/*Columna*/[300]/*Fila*/;
+		String[][] pares = new String[2][300];
 		
 		pares[0][0] = a;
 		pares[1][0] = b;
@@ -83,7 +85,7 @@ public class Minimiza {
 //					System.out.println(pares[0][x]+"\t"+pares[1][x]);
 //				}
 //			}
-			System.out.println(c);
+			System.out.println(c + " con "+a+" y "+b);
 			c++;
 			
 			boolean f1 = true;
@@ -172,6 +174,11 @@ public class Minimiza {
 				}
 				n2--;
 			}
+		}
+		System.out.println("Combinaciones posibles: ");
+		for(int x = 0; x < f; x++){
+			System.out.print(starters[0][x]+"  ");
+			System.out.print(starters[1][x]+"\n");
 		}
 		return f;
 	}
