@@ -7,6 +7,8 @@ public class Minimiza {
 	String[] deleted;
 	
 	public Minimiza(AFD a){
+		String[] l = {"1"};
+		Print(a, "AUTÓMATA INGRESADO", l);
 		int c = Combina(a);
 		Process(a, c);
 	}
@@ -29,14 +31,42 @@ public class Minimiza {
 				}
 			}
 		}
-		Print(a);
+		Print(a, "AUTÓMATA RESULTANTE:", deleted);
 	}
 	
-	public void Print(AFD a){
+	public void Print(AFD a, String msj, String del[]){
+		System.out.println("\n"+msj);
+		System.out.print("\nAlfabeto: \n");
+		for(int x = 0; x < a.getE().length; x++){
+			System.out.print(a.getE()[x]+"\t");
+		}
+		System.out.print("\nEstados: \n");
+		for(int x = 0; x < a.getK().length; x++){
+			for(int y = 0; y < del.length; y++){
+				if(!a.getK()[x].equals(del[y])){
+					System.out.print(a.getK()[x]+"\t");
+					break;
+				}
+			}
+		}
+		System.out.print("\nInicial: \n"+a.getS());
+		
+		System.out.print("\nFinales: \n");
+		for(int x = 0; x < a.getF().length; x++){
+			for(int y = 0; y < del.length; y++){
+				if(!a.getF()[x].equals(del[y])){
+					System.out.print(a.getF()[x]+"\t");
+					break;
+				}
+			}
+		}
+		System.out.println("\nTabla de transiciones: \n");
 		for(int x = 0; x < a.getDelta()[0].length; x++){
 			System.out.println("\n");
 			for(int y = 0; y < 3; y++){
-				System.out.print(a.getDelta()[y][x]+"\t");
+				if(a.getDelta()[y][x] != "nulo"){
+					System.out.print(a.getDelta()[y][x]+"\t");
+				}
 			}
 		}
 	}
@@ -175,7 +205,7 @@ public class Minimiza {
 				n2--;
 			}
 		}
-		System.out.println("Combinaciones posibles: ");
+		System.out.println("\n\nCombinaciones posibles: ");
 		for(int x = 0; x < f; x++){
 			System.out.print(starters[0][x]+"  ");
 			System.out.print(starters[1][x]+"\n");
