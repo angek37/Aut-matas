@@ -1,3 +1,7 @@
+/*
+ * Clase para el algoritmo de minimización
+ * */
+
 package net.AFD.interfaces;
 
 import java.awt.*;
