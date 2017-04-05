@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import net.encapsulados.AFD;
 
-public class Delta extends JFrame{
+public class Delta2 extends JFrame{
 	private JLabel titulo;
 	private JLabel K, E, d;
 	private JLabel[] lK, lE;
@@ -15,7 +15,7 @@ public class Delta extends JFrame{
 	String delta[][];
 
 	
-	public Delta(AFD a){
+	public Delta2(AFD a){
 		super();
 		f=Transiciones(a);
 		WindowSetup();
@@ -36,7 +36,7 @@ public class Delta extends JFrame{
             		}
        			 }
        			 a.setDelta(delta);
-       			 Delta.this.dispose();
+       			 Delta2.this.dispose();
        			 JOptionPane.showMessageDialog(null, "Autómata Ingresado Correctamente");
        		 }
             }

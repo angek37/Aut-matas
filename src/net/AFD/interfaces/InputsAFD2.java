@@ -6,15 +6,15 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-public class InputsAFD extends JFrame implements ActionListener{
+public class InputsAFD2 extends JFrame implements ActionListener{
 	AFD a = new AFD();
 	private JLabel lE, lK, ls, lF;
 	public JLabel titulo;
 	private JTextField tE, tK, ts, tF;
 	public JButton boton;
-	Delta d;
+	Delta2 d;
 	
-	public InputsAFD(){
+	public InputsAFD2(){
 		super();
 		WindowSetup();
 		Form();
@@ -91,7 +91,7 @@ public class InputsAFD extends JFrame implements ActionListener{
     			
     			a.setS(ts.getText());
     			this.dispose();
-    			d = new Delta(a);
+    			d = new Delta2(a);
 				d.setVisible(true);
     		}
 	}
