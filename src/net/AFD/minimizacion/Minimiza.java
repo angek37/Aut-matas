@@ -35,32 +35,32 @@ public class Minimiza {
 	}
 	
 	public void Print(AFD a, String msj, String del[]){
-		System.out.println("\n"+msj);
-		System.out.print("\nAlfabeto: \n");
-		for(int x = 0; x < a.getE().length; x++){
-			System.out.print(a.getE()[x]+"\t");
-		}
-		System.out.print("\nEstados: \n");
-		for(int x = 0; x < a.getK().length; x++){
-			for(int y = 0; y < del.length; y++){
-				if(!a.getK()[x].equals(del[y])){
-					System.out.print(a.getK()[x]+"\t");
-					break;
-				}
-			}
-		}
-		System.out.print("\nInicial: \n"+a.getS());
-		
-		System.out.print("\nFinales: \n");
-		for(int x = 0; x < a.getF().length; x++){
-			for(int y = 0; y < del.length; y++){
-				if(!a.getF()[x].equals(del[y])){
-					System.out.print(a.getF()[x]+"\t");
-					break;
-				}
-			}
-		}
-		System.out.println("\nTabla de transiciones: \n");
+//		System.out.println("\n"+msj);
+//		System.out.print("\nAlfabeto: \n");
+//		for(int x = 0; x < a.getE().length; x++){
+//			System.out.print(a.getE()[x]+"\t");
+//		}
+//		System.out.print("\nEstados: \n");
+//		for(int x = 0; x < a.getK().length; x++){
+//			for(int y = 0; y < del.length; y++){
+//				if(!a.getK()[x].equals(del[y])){
+//					System.out.print(a.getK()[x]+"\t");
+//					break;
+//				}
+//			}
+//		}
+//		System.out.print("\nInicial: \n"+a.getS());
+//		
+//		System.out.print("\nFinales: \n");
+//		for(int x = 0; x < a.getF().length; x++){
+//			for(int y = 0; y < del.length; y++){
+//				if(!a.getF()[x].equals(del[y])){
+//					System.out.print(a.getF()[x]+"\t");
+//					break;
+//				}
+//			}
+//		}
+		System.out.println("\nTabla de transiciones resultante: \n");
 		for(int x = 0; x < a.getDelta()[0].length; x++){
 			System.out.println("\n");
 			for(int y = 0; y < 3; y++){
