@@ -1,7 +1,3 @@
-/*
- * Clase para el algoritmo de minimización
- * */
-
 package net.AFD.interfaces;
 
 import java.awt.*;
@@ -9,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import net.encapsulados.AFD;
 
-public class Delta extends JFrame{
+public class Delta2 extends JFrame{
 	private JLabel titulo;
 	private JLabel K, E, d;
 	private JLabel[] lK, lE;
@@ -19,7 +15,7 @@ public class Delta extends JFrame{
 	String delta[][];
 
 	
-	public Delta(AFD a){
+	public Delta2(AFD a){
 		super();
 		f=Transiciones(a);
 		WindowSetup();
@@ -40,7 +36,7 @@ public class Delta extends JFrame{
             		}
        			 }
        			 a.setDelta(delta);
-       			 Delta.this.dispose();
+       			 Delta2.this.dispose();
        			 JOptionPane.showMessageDialog(null, "Autómata Ingresado Correctamente");
        		 }
             }
@@ -96,7 +92,7 @@ public class Delta extends JFrame{
 	
 	public int Transiciones(AFD a){
 		int filas = (a.getE().length*a.getK().length);
-		delta = new String[3][filas];
+		delta = new String[20][filas];
 		int c=0;
 		for(int x = 0; x<filas;){
 			for(int b = 0; b< a.getE().length;b++){

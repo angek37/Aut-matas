@@ -8,8 +8,8 @@ import net.AFD.interfaces.*;
 public class Menu extends JFrame implements ActionListener{
 	private JLabel titulo, lfi, lse;
 	private JButton fi, se, r;
-	InputsAFD i1 = new InputsAFD();
-	InputsAFD i2 = new InputsAFD();
+	InputsAFD2 i1 = new InputsAFD2();
+	InputsAFD2 i2 = new InputsAFD2();
 	
 	public Menu(){
 		super();
@@ -71,7 +71,7 @@ public class Menu extends JFrame implements ActionListener{
 			lse.setForeground(Color.GREEN);
 		}
 		if(e.getSource()==r){
-			//Comparacion c = new Comparacion(i1.getAFD(), i2.getAFD());
+			Equivalencia c = new Equivalencia(i1.getAFD(), i2.getAFD());
 		}
 	}
 
