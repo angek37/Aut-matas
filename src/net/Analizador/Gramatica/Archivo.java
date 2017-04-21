@@ -11,7 +11,7 @@ import java.io.*;
 import javax.swing.JOptionPane;
 
 public class Archivo {
-	String gramar[];
+	private String gramar[];
 	
 	public Archivo(){
 		String name = "gramatica.txt";

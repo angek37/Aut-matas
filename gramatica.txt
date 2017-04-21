@@ -1,5 +1,23 @@
-linea 1
-linea 2
-linea 3
-linea 4
-linea 5
+system_goal > program
+program > begin statement_list end
+statement_list > statement statement_tail
+statement_tail > statement statement_tail
+statement_tail > 
+statement > id ':' '=' expression ';'
+statement > read '(' id_list ')' ';'
+statement > write '(' expr_list ')' ';'
+id_list > id id_tail
+id_tail > ';' id_tail
+id_tail > 
+expr_list > expr expr_tail
+expr_tail > ';' expression expr_tail
+expr_tail > 
+expression > primary primary_tail
+primary_tail > addop primary primary_tail
+primary_tail > 
+primary > '(' expression ')'
+primary > id
+primary > intLiteral
+primary > RealNum
+addop > '+'
+addop > '-'
