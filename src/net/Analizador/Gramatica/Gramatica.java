@@ -10,6 +10,8 @@ public class Gramatica {
 	public Gramatica(){
 		Archivo a = new Archivo();
 		String[] g = a.getGramar();
+		System.out.println("\nGramática\n");
+		a.Imprimir();
 		Nterminales(g);
 		Terminales(g);
 	}
@@ -131,7 +133,7 @@ public class Gramatica {
 	public void PrintBArray(String[][] a){
 		for(int x = 0; x < a.length; x++){
 			for(int y = 0; y < a[x].length; y++){
-				System.out.print(a[x][y] + " ");
+				System.out.print(a[x][y] + " | ");
 			}
 			System.out.println("\n");
 		}
