@@ -5,6 +5,7 @@ public class Gramatica {
 	private String[] term = new String[1]; // Almacena los simbolos terminales
 	private int co = 0;
 	private String[][] nterm;
+	private String[] sterm = new String[1];
 	private int ca = 0;
 	
 	public Gramatica(){
@@ -13,10 +14,10 @@ public class Gramatica {
 		System.out.println("\nGramática\n");
 		a.Imprimir();
 		Nterminales(g);
-		Terminales(g);
+		ProduccionesDer(g);
 	}
 	
-	public void Terminales(String[] g){
+	public void ProduccionesDer(String[] g){
 		String aux;
 		boolean fl, fl2;
 		int c = 0;
@@ -38,8 +39,9 @@ public class Gramatica {
 			}
 			InTerminales(aux, c);
 		}
-		System.out.println("\n\nTerminales: ");
+		System.out.println("\n\nProducciones derecha: ");
 		PrintBArray(nterm);
+		Terminales(nterm);
 	}
 
 	public void InTerminales(String a, int term){
@@ -97,6 +99,14 @@ public class Gramatica {
 		nterm = new String[term.length][];
 		for(int x = 0; x < term.length; x++){
 			nterm[x] = new String[1];
+		}
+	}
+	
+	public void Terminales(String[][] a){
+		for(int x = 0; x < a.length; x++){
+			for(int y = 0; y < a[x].length; y++){
+				
+			}
 		}
 	}
 	
