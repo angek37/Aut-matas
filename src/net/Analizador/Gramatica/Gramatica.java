@@ -2,84 +2,113 @@ package net.Analizador.Gramatica;
 
 public class Gramatica {
 	private char del = '>';
-	private String[] term = new String[1]; // Almacena los simbolos terminales
-	private int co = 0;
-	private String[][] nterm;
-	private String[] sterm = new String[1];
-	private int ca = 0;
+	private String[] noterm = new String[1];	//Almacena los simbolos terminales
+	private int co = 0;	// Contador global del método isRepeat, de las veces
+	private String[][] prod;
+	private int ca = 0; //Contador global del método InsertProd cuenta la cantidad de simbolos 
+						//de cada produccion y se reinicia al cambio de fila de gramatica
+	private String[] term = new String[1];
+	private int ce = 0;
 	
 	public Gramatica(){
 		Archivo a = new Archivo();
 		String[] g = a.getGramar();
 		System.out.println("\nGramática\n");
 		a.Imprimir();
-		Nterminales(g);
+		NoTerminales(g);
 		ProduccionesDer(g);
+		Terminales();
+	}
+	
+	public void Terminales(){
+		for(int x = 0; x < prod.length; x++){
+			for(int y = 0; y < prod[x].length; y++){
+				isTerm(prod[x][y]);
+			}
+		}
+		System.out.println("\n TERMINALES:");
+		PrintArray(term);
+	}
+	
+	public void isTerm(String a){
+		boolean fl = true;
+		String[] aux;
+		for(int x = 0; x < noterm.length; x++){
+			if(noterm[x].equals(a)){
+				fl = false;		// Si está en los NO terminales no es un simbolo terminal
+			}
+		}
+		
+		if(fl && ce > 0){		// Verifica que haya al menos un simbolo ya registrado
+			for(int x = 0; x < term.length; x++){
+				if(term[x].equals(a)){
+					fl = false;		// Si YA está registrado no vuelve a insertarlo
+				}
+			}
+		}
+		
+		if(fl){
+			ce++;
+			aux = new String[ce];
+			for(int y = 0; y < term.length; y++){
+				aux[y] = term[y];
+			}
+			aux[ce-1] = a;
+			term = new String[ce];
+			for(int y = 0; y < term.length; y++){
+				term[y] = aux[y];
+			}
+		}
 	}
 	
 	public void ProduccionesDer(String[] g){
-		String aux;
-		boolean fl, fl2;
-		int c = 0;
-		int c2;
+		int pos = 0;
+		int y = 0;
+		String aux = "";
 		for(int x = 0; x < g.length; x++){
-			fl = false;
-			aux = "";
-			for(int y = 0; y < g[x].length(); y++){
+			while(y < g[x].length()){
 				if(g[x].charAt(y) == del){
-					fl = true;
+					pos = y + 1;
+					while(g[x].charAt(pos) == ' ' && pos < g[x].length()-1){
+						pos ++;
+					}
 				}
-				if(fl && g[x].charAt(y) != del){
-					aux += g[x].charAt(y);
+				y++;
+			}
+			y = 0;
+			for(int z = pos; z < g[x].length(); z++){
+				if(g[x].charAt(z) != ' '){
+					aux += g[x].charAt(z);
+					if(z == g[x].length()-1){
+						InsertProd(x, aux);
+						aux = "";
+					}
+				}else{
+					InsertProd(x, aux);
+					aux = "";
 				}
 			}
-			c2 = c;
-			if((c = WhoTerm(g, x)) != c2){
-				ca = 0;
-			}
-			InTerminales(aux, c);
+			ca = 0;
 		}
-		System.out.println("\n\nProducciones derecha: ");
-		PrintBArray(nterm);
-		Terminales(nterm);
+		System.out.println("\nPRODUCCIONES: ");
+		PrintBArray(prod);
 	}
-
-	public void InTerminales(String a, int term){
-		String[] aux;
-		if(a != ""){
-			ca++;
-			aux = new String[ca];
-			for(int x = 0; x < nterm[term].length; x++){
-				aux[x] = nterm[term][x];
-			}
-			nterm[term] = new String[ca];
-			aux[ca-1] = a;
-			for(int x = 0; x < nterm[term].length; x++){
-				nterm[term][x] = aux[x];
-			}
-			aux = null;
+	
+	public void InsertProd(int c, String a){	/* Recibe en 'c' la fila de la producción y el simbolo, lo mete 
+	* en una columna de la fila de la producción en la que se encuentra*/
+		ca++;
+		String[] aux = new String[prod[c].length+1];
+		for(int x = 0; x < prod[c].length; x++){
+			aux[x] = prod[c][x];
+		}
+		aux[ca-1] = a;
+		prod[c] = new String[ca];
+		for(int x = 0; x < prod[c].length; x++){
+			prod[c][x] = aux[x];
 		}
 	}
 	
-	public int WhoTerm(String[] g , int a){
-		int pos = 0;
-		String aux = "";
-		int y = 0;
-		while(g[a].charAt(y) != del){
-			if(g[a].charAt(y) != ' '){
-				aux += g[a].charAt(y);
-			}
-			y++;
-		}
-		for(int x = 0; x < term.length; x++){
-			if(aux.equals(term[x])){
-				pos = x;
-			}
-		}
-		return pos;
-	}
-
-	public void Nterminales(String[] g){
+	public void NoTerminales(String[] g){	//Método para extrar los simbolos terminales
 		String aux = "";
 		int y;
 		for(int x = 0; x < g.length; x++){
@@ -95,27 +124,17 @@ public class Gramatica {
 		}
 		
 		System.out.println("\n\nNO Terminales: ");
-		PrintArray(term);
-		nterm = new String[term.length][];
-		for(int x = 0; x < term.length; x++){
-			nterm[x] = new String[1];
-		}
+		PrintArray(noterm);
+		prod = new String[g.length][0];
 	}
 	
-	public void Terminales(String[][] a){
-		for(int x = 0; x < a.length; x++){
-			for(int y = 0; y < a[x].length; y++){
-				
-			}
-		}
-	}
-	
-	public void isRepeat(String a){
+	public void isRepeat(String a){		//	Auxiliar del método "NoTerminales" revisa si el simbolo 
+										//extraido no esta ya registrado
 		String[] aux;
 		boolean fl = false;
 		
-		for(int x = 0; x < term.length; x++){
-			if(a.equals(term[x])){
+		for(int x = 0; x < noterm.length; x++){
+			if(a.equals(noterm[x])){
 				fl = true;
 			}
 		}
@@ -123,24 +142,27 @@ public class Gramatica {
 			co++;
 			aux = new String[co];
 			
-			for(int y = 0; y < term.length; y++){
-				aux[y] = term[y];
+			for(int y = 0; y < noterm.length; y++){
+				aux[y] = noterm[y];
 			}
 			aux[co-1] = a;
 
-			term = new String[co];
-			term = aux;
+			noterm = new String[co];
+			noterm = aux;
 			aux = null;
 		}
 	}
 	
-	public void PrintArray(String[] a){
+	
+	
+
+	public void PrintArray(String[] a){		// Método para imprimir arreglo unidimensional
 		for(int x = 0; x < a.length; x++){
 			System.out.println(a[x]);
 		}
 	}
 	
-	public void PrintBArray(String[][] a){
+	public void PrintBArray(String[][] a){	// Método para imprimir arreglo bidimensional
 		for(int x = 0; x < a.length; x++){
 			for(int y = 0; y < a[x].length; y++){
 				System.out.print(a[x][y] + " | ");
