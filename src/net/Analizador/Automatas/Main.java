@@ -10,8 +10,9 @@ public class Main {
         System.out.println(s1);
         
     	aut.caracteres();
+    //	aut.salida();
     	aut.Automataa();
-    	aut.salida();
+
     	
         
 	}
