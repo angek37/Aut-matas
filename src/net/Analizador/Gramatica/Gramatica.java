@@ -144,8 +144,17 @@ public class Gramatica {
 		}
 	}
 	
+	public String[] getTerminals(){
+		return term;
+	}
 	
+	public String[] getNoTerminals(){
+		return noterm;
+	}
 	
+	public String[][] getProductions(){
+		return prod;
+	}
 
 	public void PrintArray(String[] a){		// Método para imprimir arreglo unidimensional
 		for(int x = 0; x < a.length; x++){
