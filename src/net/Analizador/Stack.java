@@ -25,5 +25,17 @@ public class Stack {
 			return stack[t--];
 		}
 	}
+	
+	public boolean isEmpty(){
+		boolean r=false;
+		if(t < 0){
+			r = true;
+		}
+		return r;
+	}
+	
+	public int TOS(){
+		return t;
+	}
 
 }
