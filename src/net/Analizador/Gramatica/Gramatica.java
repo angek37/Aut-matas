@@ -13,8 +13,6 @@ public class Gramatica {
 	public Gramatica(){
 		Archivo a = new Archivo();
 		String[] g = a.getGramar();
-		System.out.println("\nGramática\n");
-		a.Imprimir();
 		NoTerminales(g);
 		ProduccionesDer(g);
 		Terminales();
@@ -26,8 +24,6 @@ public class Gramatica {
 				isTerm(prod[x][y]);
 			}
 		}
-		System.out.println("\n TERMINALES:");
-		PrintArray(term);
 	}
 	
 	public void isTerm(String a){
@@ -90,8 +86,6 @@ public class Gramatica {
 			}
 			ca = 0;
 		}
-		System.out.println("\nPRODUCCIONES: ");
-		PrintBArray(prod);
 	}
 	
 	public void InsertProd(int c, String a){	/* Recibe en 'c' la fila de la producción y el simbolo, lo mete 
@@ -122,9 +116,6 @@ public class Gramatica {
 			isRepeat(aux);
 			aux = "";
 		}
-		
-		System.out.println("\n\nNO Terminales: ");
-		PrintArray(noterm);
 		prod = new String[g.length][0];
 	}
 	

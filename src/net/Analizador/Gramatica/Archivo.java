@@ -25,8 +25,6 @@ public class Archivo {
 		FileReader f2 = null;
 		BufferedReader count = null;
 		BufferedReader read = null;
-		System.out.println("Name: "+f.getName());
-		System.out.println("Exists: "+f.exists());
 		try {
 			fr = new FileReader(f);
 			f2 = new FileReader(f);
@@ -37,7 +35,6 @@ public class Archivo {
 			while((count.readLine()) != null){
 				c++;
 			}
-			System.out.println("Lines:" +c);
 			gramar = new String[c];
 			for(int x = 0; x < c; x++){
 				if((aux=read.readLine()) != null){
