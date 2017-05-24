@@ -1,6 +1,3 @@
+   begin
    identi12 := 2 + 5 ;
    end
-   asjd
-   holi 24
-   ;
-   ( alverga )
