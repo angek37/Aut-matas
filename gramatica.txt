@@ -1,4 +1,3 @@
-system_goal > program $
 program > begin statement_list end
 statement_list > statement statement_tail
 statement_tail > statement statement_tail
@@ -21,3 +20,4 @@ primary > intLiteral
 primary > RealNum
 addop > +
 addop > -
+system_goal > program $
