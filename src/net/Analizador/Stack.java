@@ -34,6 +34,12 @@ public class Stack {
 		return r;
 	}
 	
+	public String Read(int x){
+		String a = "";
+		a = stack[x+1];
+		return a;
+	}
+	
 	public int TOS(){
 		return t;
 	}

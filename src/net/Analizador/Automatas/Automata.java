@@ -6,7 +6,7 @@ import java.io.*;
 
 public class Automata {
 
-	static char[] cad;
+	public char[] cad;
 	static char[] car;
 	int fi = 0;
 	int ini = 0;
@@ -121,8 +121,9 @@ public class Automata {
 		} while (estado != 6);
 	}
 	
-	public void aceptado() {
+	public String aceptado() {
 		String acepta = "";
+		String token = "";
 		String temp = "";
 		int initemp = 0;
 		if (tipstd == true) {
@@ -132,6 +133,7 @@ public class Automata {
 					ini++;
 				}else{
 					System.out.print("" + cad[ini]);
+					token+=cad[ini];
 					ini++;		
 				}	
 			}
@@ -143,12 +145,14 @@ public class Automata {
 					ini++;
 				}else{
 					System.out.print("" + cad[ini]);
-					ini++;	
+					token+=cad[ini];
+					ini++;
 				}
 			}
 			acepta = "no aceptada";
 		}
 		System.out.println("\nLlego aun estado de " + acepta);
+		return token;
 	}
 
 	public void salida() {
