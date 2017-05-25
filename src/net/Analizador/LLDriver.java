@@ -35,7 +35,7 @@ public class LLDriver {
 		prod = g.getProductions();
 		s = new Stack();
 		AU.leerarchivo();
-		//Procedure();
+		Procedure();
 	}
 	
 	public void Procedure(){
