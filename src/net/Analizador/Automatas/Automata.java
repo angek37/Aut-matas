@@ -36,7 +36,7 @@ public class Automata {
 	}
 
 
-	public String Automataa() {
+	public String getToken() {
 		String token="";
 		int no_ter =0; 
 		if(fi!=cad.length){
@@ -180,22 +180,5 @@ public class Automata {
 		System.out.println("Estado  || Elemento");
 	}
 	
-	
-	public static void main (String args[]){
-		Automata aut = new Automata();
-		
-		aut.leerarchivo();
-		
-		System.out.println(" ");
-		System.out.println("Token: "+aut.Automataa());
-		System.out.println("token: "+aut.Automataa());
-		System.out.println("token: "+aut.Automataa());
-		System.out.println("token: "+aut.Automataa());
-		System.out.println("token: "+aut.Automataa());
-		System.out.println("token: "+aut.Automataa());
-		System.out.println("token: "+aut.Automataa());
-		System.out.println("token: "+aut.Automataa());
-		System.out.println("token: "+aut.Automataa());
-		
-	}
+
 }

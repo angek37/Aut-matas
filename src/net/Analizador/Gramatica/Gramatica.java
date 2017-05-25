@@ -43,7 +43,7 @@ public class Gramatica {
 			}
 		}
 		
-		if(fl){
+		if(fl && a != ""){
 			ce++;
 			aux = new String[ce];
 			for(int y = 0; y < term.length; y++){
@@ -173,5 +173,8 @@ public class Gramatica {
 	
 	public static void main(String mr[]){
 		Gramatica g = new Gramatica();
+		g.PrintArray(g.term);
+		g.PrintArray(g.noterm);
+		g.PrintBArray(g.prod);
 	}
 }

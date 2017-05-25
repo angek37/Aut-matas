@@ -11,10 +11,21 @@ public class LLDriver {
 	private String x;
 	private String a;
 	private Automata AU = new Automata();
-	private int[][] predic = {{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, {0,0,4,0,0,0,0,0,0,0,0,0,0}, {0,2,3,5,8,0,11,0,14,0,18,0,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,9,0,12,0,16,0,0,0},{0,0,0,0,0,0,0,0,0,16,0,0,0},{0,2,3,6,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,11,0,14,0,17,0,0},
-			{0,0,0,0,0,10,0,13,0,16,0,0,0},{0,2,3,7,0,0,0,0,0,0,0,0,0},{0,0,0,0,0,0,11,0,14,0,19,0,0},{0,0,0,0,0,0,0,0,0,15,0,20,0},{0,0,0,0,0,0,0,0,0,15,0,15,0},
-			{0,0,0,0,0,0,0,0,14,0,23,0,0}};
+	private int[][] predic = 
+		{{1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,22}, 
+		{-1,-1,4,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+		{-1,2,3,5,8,-1,11,-1,14,-1,18,-1,-1},
+		{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+		{-1,-1,-1,-1,-1,-1,-1,-1,-1,16,-1,-1,-1},
+		{-1,2,3,6,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+		{-1,-1,-1,-1,-1,-1,11,-1,14,-1,17,-1,-1},
+		{-1,-1,-1,-1,-1,1-1,-1,13,-1,16,-1,-1,-1},
+		{-1,2,3,7,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+		{-1,-1,-1,-1,-1,-1,11,-1,14,-1,19,-1,-1},
+		{-1,-1,-1,-1,-1,-1,-1,-1,-1,15,-1,2-1,-1},
+		{-1,-1,-1,-1,-1,-1,-1,-1,-1,15,-1,15,-1},
+		{-1,-1,-1,-1,-1,-1,-1,-1,14,-1,23,-1,-1},
+		{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}};
 	
 	
 	public LLDriver(){
@@ -23,19 +34,18 @@ public class LLDriver {
 		nterm = g.getNoTerminals();
 		prod = g.getProductions();
 		s = new Stack();
-		String s1 = AU.leerTxt("cadena.txt");
-		AU.cad = s1.toCharArray();
-		Procedure();
+		AU.leerarchivo();
+		//Procedure();
 	}
 	
 	public void Procedure(){
 		s.Push(SymbolInit());
 		a = s.Read();
-		x = AU.aceptado();
+		x = AU.getToken();
 		while(!s.isEmpty()){
 			if(inNoTerminals(x)){
-				if(predic[ReturnPos(term, x)][ReturnPos(nterm, a)] != 0){
-					
+				if(predic[ReturnPos(term, x)][ReturnPos(nterm, a)] != -1){
+					x = prod[ReturnPos(nterm, a)][0];
 				}
 			}else{
 				if(x == a){
@@ -94,6 +104,8 @@ public class LLDriver {
 	
 	public static void main(String[] mr){
 		LLDriver lld = new LLDriver();
+		System.out.println(lld.ReturnPos(lld.nterm, "system_goal"));
+		System.out.println(lld.prod[22][0]);
 	}
 	
 }
