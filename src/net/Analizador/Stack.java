@@ -1,47 +1,63 @@
 package net.Analizador;
 
 public class Stack {
-	private String[] stack;
-	private int t;
-	
-	public Stack(int n){
-		stack = new String[n];
-		t=-1;
-	}
-	
-	public void Push(String v){
-		if(t == stack.length-1){
-			System.out.println("Pila llena");
-		}else{
-			stack[++t] =  v;
-		}
-	}
-	
-	public String Pop(){
-		if(t < 0){
-			System.out.println("Pila Vacia");
-			return "/";
-		}else{
-			return stack[t--];
-		}
-	}
-	
-	public boolean isEmpty(){
-		boolean r=false;
-		if(t < 0){
-			r = true;
-		}
-		return r;
-	}
-	
-	public String Read(int x){
-		String a = "";
-		a = stack[x+1];
-		return a;
-	}
-	
-	public int TOS(){
-		return t;
-	}
 
+	
+    private Nodo raiz;
+    
+    public Stack(){
+        raiz=null;
+    }
+    
+    public void Push(String x){
+    	Nodo nuevo;
+        nuevo = new Nodo();
+        nuevo.info = x;
+        if (raiz==null){
+            nuevo.sig = null;
+            raiz = nuevo;
+        }
+        else{
+            nuevo.sig = raiz;
+            raiz = nuevo;
+        }
+    }
+    
+    public String Pop (){
+        if (raiz!=null){
+            String informacion = raiz.info;
+            raiz = raiz.sig;
+            return informacion;
+        }
+        else{
+            return "/";
+        }
+    }
+    
+    public String Read(){
+    	String a = "";
+    	if (raiz!=null){
+            a = raiz.info;
+        }
+        else{
+            a = "";
+        }
+    	return a;
+    }
+    
+    public boolean isEmpty(){
+    	boolean r = false;
+    	if(raiz==null){
+    		r = true;
+    	}
+    	return r;
+    }
+    
+    public static void main(String[] mr){
+    	Stack s = new Stack();
+    	s.Push("Hola");
+    	s.Push("LOL");
+    	System.out.print(s.Read());
+    	System.out.print(s.Pop());
+    }
 }

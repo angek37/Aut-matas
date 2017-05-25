@@ -22,7 +22,7 @@ public class LLDriver {
 		term = g.getTerminals();
 		nterm = g.getNoTerminals();
 		prod = g.getProductions();
-		s = new Stack(nterm.length);
+		s = new Stack();
 		String s1 = AU.leerTxt("cadena.txt");
 		AU.cad = s1.toCharArray();
 		Procedure();
@@ -30,7 +30,7 @@ public class LLDriver {
 	
 	public void Procedure(){
 		s.Push(SymbolInit());
-		a = s.Read(s.TOS());
+		a = s.Read();
 		x = AU.aceptado();
 		while(!s.isEmpty()){
 			if(inNoTerminals(x)){
