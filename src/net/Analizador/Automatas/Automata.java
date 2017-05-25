@@ -1,29 +1,48 @@
 package net.Analizador.Automatas;
 
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 import javax.swing.JOptionPane;
-import java.io.*;
 
 public class Automata {
-
-	public char[] cad;
-	static char[] car;
+	
+	static char[] cad;
+	static char[] car = {':','=','+','-','(',')',';'};
 	int fi = 0;
 	int ini = 0;
 	boolean tipstd = false;
 	int estado = 0;
-	
-	public void caracteres() {
-		String caracteres = "*,:=+-()/;\n$<>"; 
-		car = caracteres.toCharArray();
+	String text = "";
+	int y =0;
+	String a="";
+	 
+	public void leerarchivo (){
+		String text = "";
+		try {
+			BufferedReader bf = new BufferedReader(new FileReader("cadena.txt"));
+			String temp = "";
+			String bfRead;
+			while ((bfRead = bf.readLine()) != null) {
+				temp = temp + bfRead+" ";//denota la linea donde se encuentra el error
+			}
+			bf.close();
+			//System.out.println("la cadena es: "+temp);
+			cad=temp.toCharArray();
+			
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null,"Error: No se encontro el archivo ");
+		}	
 	}
 
-	public void Automataa() {
-		boolean primeravez = false;
+
+	public String Automataa() {
+		String token="";
+		int no_ter =0; 
+		if(fi!=cad.length){
 		do {
 			switch (estado) {
 			case 0:
-				vacio();
 				//System.out.println("Estado 0 " + cad[fi]);
 				tipstd = false;
 				if (Character.isSpace(cad[fi])) {//Si es un espacio en blanco
@@ -45,31 +64,26 @@ public class Automata {
 				break;
 			case 1:
 				tipstd = true;
-				vacio();
 				//System.out.println("Estado 1 " + cad[fi]);
+				
 				if (Character.isSpace(cad[fi])) {
-					estado = 0;
-					aceptado();
+					estado = 6;
 				}
 				else if (cad[fi] == '.') {
 					estado = 5;	
 				}else if(Character.isDigit(cad[fi])){
 					estado = 1;
-					if (cad[fi] == '0') {
-						estado = 1;
-					}
 				}else{
 					estado=4;
 				}
+				no_ter=1;
 				fi++;
 				break;
 			case 2:
 				tipstd = true;
-				vacio();
 				//System.out.println("Estado 2 " + cad[fi]);
 				if (Character.isSpace(cad[fi])) {
-					estado = 0;
-					aceptado();
+					estado = 6;
 				}
 				else if (Character.isLetter(cad[fi])) {
 					estado = 2;
@@ -78,17 +92,16 @@ public class Automata {
 				}else{
 					estado = 4;
 				}
+				no_ter=2;
 				fi++;
 				break;
 			case 3:
 				tipstd = true;
-				vacio();
 				//System.out.println("Estado 3 " + cad[fi]);
 				if(cad[fi]=='='){
 					estado= 3;
 				}else if(Character.isSpace(cad[fi])) {// elemento vacio
-					estado = 0;
-					aceptado();
+					estado = 6;
 				}else{
 					estado = 4;
 				}
@@ -96,66 +109,69 @@ public class Automata {
 				break;
 			case 4:
 				tipstd=false;
-				vacio();
-				System.out.println("Estado de error el token no fue aceptado");
-				aceptado();
-				estado=0;
+				System.out.println("Error lexico el token no fue aceptado");
+				estado=6;
 				fi++;
-				//vacio();
 				break;
 			case 5:
 				tipstd=true;
-				vacio();
 				//System.out.println("Estado 5 " + cad[fi]);
 				if (Character.isSpace(cad[fi])) {
-					estado = 0;
-					aceptado();
+					estado = 6;
 				}else if(Character.isDigit(cad[fi])){
 					estado = 5;
 				}else{
 					estado=4;
 				}
+				no_ter=5;
 				fi++;
 				break;
 			}
 		} while (estado != 6);
-	}
-	
-	public String aceptado() {
+		}else{
+			System.out.println("Fin del archivo");
+		}
 		String acepta = "";
-		String token = "";
-		String temp = "";
 		int initemp = 0;
 		if (tipstd == true) {
-			System.out.print("El token:");
 			while (fi != ini) {
 				if((Character.isSpace(cad[ini])||cad[ini]=='0')){
 					ini++;
 				}else{
-					System.out.print("" + cad[ini]);
 					token+=cad[ini];
-					ini++;		
+					ini++;
 				}	
 			}
 			acepta = "aceptada";
 		} else {
-			System.out.print("El token:");
 			while (fi != ini) {
 				if((Character.isSpace(cad[ini])||cad[ini]=='0')){
 					ini++;
-				}else{
-					System.out.print("" + cad[ini]);
+				}else{	
 					token+=cad[ini];
 					ini++;
 				}
 			}
 			acepta = "no aceptada";
 		}
-		System.out.println("\nLlego aun estado de " + acepta);
-		return token;
+		if(no_ter==2){
+			if(token.equals("begin")||token.equals("read")||token.equals("write")||token.equals("end")){
+			}else{
+				token="id";
+			}
+		}else if(no_ter==1){
+			token="intLiteral";
+		}else if(no_ter==5){
+			token="RealNum";
+		}else{
+			
+		}
+		text=token;
+		estado=0;
+		return text;
 	}
-
-	public void salida() {
+	
+	public void salida() {//metodo de salida de la cadena completa
 		System.out.print("La cadena a evaluar es: ");
 		for (int r = 0; r < cad.length; r++) {
 			System.out.print("" + cad[r]);
@@ -163,49 +179,23 @@ public class Automata {
 		System.out.println("");
 		System.out.println("Estado  || Elemento");
 	}
-
-	public void vacio() {
-		try {
-			if (cad[fi] < cad.length) {
-				//System.out.println("vacio? ");
-
-				//estado = 9;
-			} else {
-
-			}
-		} catch (Exception e) {
-			aceptado();
-
-			System.out.println("\nSe termino la cadena");
-
-			if (tipstd == true) {
-				System.out.println("Termino en un estado: de aceptacion");
-				fi++;
-			} else {
-				System.out.println("Termino en un estado: de no aceptacion o Error");
-			}
-			if (ini == fi - 1) {
-				System.out.print("saliendo");
-				System.exit(0);
-			}
-		}
-	}
-
-	public String leerTxt(String direccion) {
-		String text = "";
-
-		try {
-			BufferedReader bf = new BufferedReader(new FileReader(direccion));
-			String temp = "";
-			String bfRead;
-			while ((bfRead = bf.readLine()) != null) {
-				temp = temp + bfRead; 
-			}
-			text = temp;
-			bf.close();
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,"Error: No se encontro el archivo ");
-		}
-		return text;
+	
+	
+	public static void main (String args[]){
+		Automata aut = new Automata();
+		
+		aut.leerarchivo();
+		
+		System.out.println(" ");
+		System.out.println("Token: "+aut.Automataa());
+		System.out.println("token: "+aut.Automataa());
+		System.out.println("token: "+aut.Automataa());
+		System.out.println("token: "+aut.Automataa());
+		System.out.println("token: "+aut.Automataa());
+		System.out.println("token: "+aut.Automataa());
+		System.out.println("token: "+aut.Automataa());
+		System.out.println("token: "+aut.Automataa());
+		System.out.println("token: "+aut.Automataa());
+		
 	}
 }
