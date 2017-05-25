@@ -29,7 +29,7 @@ public class LLDriver {
 	}
 	
 	public void Procedure(){
-		s.Push(nterm[0]);
+		s.Push(SymbolInit());
 		a = s.Read(s.TOS());
 		x = AU.aceptado();
 		while(!s.isEmpty()){
@@ -47,13 +47,27 @@ public class LLDriver {
 		}
 	}
 	
-	public boolean inNoTerminals(String x){
+	public boolean inNoTerminals(String a){
 		boolean r = false;
 		for(int c = 0; c < nterm.length; c++){
-			if(x.equalsIgnoreCase(nterm[c])){
+			if(a.equalsIgnoreCase(nterm[c])){
 				r = true;
 			}
 		}
+		return r;
+	}
+	
+	public boolean inProd(String a){
+		boolean r = false;
+		for(int c = 0; c < prod.length; c++){
+			for(int y = 0; y < prod[c].length; y++){
+				if(a.equalsIgnoreCase(prod[c][y])){
+					r = true;
+					break;
+				}
+			}
+		}
+		
 		return r;
 	}
 	
@@ -65,6 +79,17 @@ public class LLDriver {
 			}
 		}
 		return r;
+	}
+	
+	public String SymbolInit(){
+		String a = "";
+		for(int c = 0; c < nterm.length; c++){
+			String aux = nterm[c];
+			if(!inProd(aux)){
+				a = aux;
+			}
+		}
+		return a;
 	}
 	
 	public static void main(String[] mr){
