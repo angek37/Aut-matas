@@ -39,21 +39,26 @@ public class LLDriver {
 	}
 	
 	public void Procedure(){
+		int Pos;
 		s.Push(SymbolInit());
-		a = s.Read();
-		x = AU.getToken();
+		x = s.Read();
+		a = AU.getToken();
 		while(!s.isEmpty()){
 			if(inNoTerminals(x)){
-				if(predic[ReturnPos(term, x)][ReturnPos(nterm, a)] != -1){
-					x = prod[predic[ReturnPos(term, x)][ReturnPos(nterm, a)]][0];
-					for(int y = 0; y < prod[predic[ReturnPos(term, x)][ReturnPos(nterm, a)]].length; y++){
-						s.Push(prod[predic[ReturnPos(term, x)][ReturnPos(nterm, a)]][y]);
+				System.out.println(ReturnPos(nterm, x));
+				System.out.println(ReturnPos(term, a));
+				Pos = predic[ReturnPos(term, a)][ReturnPos(nterm, x)];
+				if(predic[ReturnPos(term, a)][ReturnPos(nterm, x)] != -1){
+					x = prod[predic[ReturnPos(term, a)][ReturnPos(nterm, x)]][0];
+					s.Pop();
+					for(int y = 0; y < prod[predic[ReturnPos(term, a)][ReturnPos(nterm, x)]].length; y++){
+						s.Push(prod[predic[ReturnPos(term, a)][ReturnPos(nterm, x)]][y]);
 					}
 				}else{
 					System.out.println("Syntax Error");
 				}
 			}else{
-				if(x == a){
+				if(x.equalsIgnoreCase(a)){
 					s.Pop();
 					a = s.Read();
 				}else{
