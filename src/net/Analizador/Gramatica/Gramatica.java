@@ -5,6 +5,7 @@ public class Gramatica {
 	private String[] noterm = new String[1];	//Almacena los simbolos terminales
 	private int co = 0;	// Contador global del método isRepeat, de las veces
 	private String[][] prod;
+	private String[][] prodCo;
 	private int ca = 0; //Contador global del método InsertProd cuenta la cantidad de simbolos 
 						//de cada produccion y se reinicia al cambio de fila de gramatica
 	private String[] term = new String[1];
@@ -14,6 +15,7 @@ public class Gramatica {
 		Archivo a = new Archivo();
 		String[] g = a.getGramar();
 		NoTerminales(g);
+		Producciones(g);
 		ProduccionesDer(g);
 		Terminales();
 	}
@@ -56,6 +58,45 @@ public class Gramatica {
 			}
 		}
 	}
+	
+	public void Producciones(String[] g){
+		prodCo = new String[g.length][0];
+		int y=0;
+		String aux = "";
+		for(int x = 0; x < g.length; x++){
+			while(y < g[x].length()){
+				if(g[x].charAt(y) != del && g[x].charAt(y) != ' '){
+					aux+=g[x].charAt(y);
+					if(y == g[x].length()-1){
+						InsertProdCom(x, aux);
+						aux = "";
+					}
+				}else{
+					if(aux != ""){
+						InsertProdCom(x, aux);
+					}
+					aux = "";
+				}
+				y++;
+			}
+			y=0;
+			ca = 0;
+		}
+	}
+	
+	public void InsertProdCom(int c, String a){	/* Recibe en 'c' la fila de la producción y el simbolo, lo mete 
+		* en una columna de la fila de la producción en la que se encuentra*/
+			ca++;
+			String[] aux = new String[prodCo[c].length+1];
+			for(int x = 0; x < prodCo[c].length; x++){
+				aux[x] = prodCo[c][x];
+			}
+			aux[ca-1] = a;
+			prodCo[c] = new String[ca];
+			for(int x = 0; x < prodCo[c].length; x++){
+				prodCo[c][x] = aux[x];
+			}
+		}
 	
 	public void ProduccionesDer(String[] g){
 		int pos = 0;
@@ -152,8 +193,12 @@ public class Gramatica {
 		return noterm;
 	}
 	
-	public String[][] getProductions(){
+	public String[][] getRightProductions(){
 		return prod;
+	}
+	
+	public String[][] getProductions(){
+		return prodCo;
 	}
 
 	public void PrintArray(String[] a){		// Método para imprimir arreglo unidimensional
@@ -176,5 +221,6 @@ public class Gramatica {
 		g.PrintArray(g.term);
 		g.PrintArray(g.noterm);
 		g.PrintBArray(g.prod);
+		g.PrintBArray(g.prodCo);
 	}
 }
