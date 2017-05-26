@@ -32,7 +32,7 @@ public class LLDriver {
 		Gramatica g = new Gramatica();
 		term = g.getTerminals();
 		nterm = g.getNoTerminals();
-		prod = g.getProductions();
+		prod = g.getRightProductions();
 		s = new Stack();
 		AU.leerarchivo();
 		Procedure();
@@ -45,11 +45,17 @@ public class LLDriver {
 		while(!s.isEmpty()){
 			if(inNoTerminals(x)){
 				if(predic[ReturnPos(term, x)][ReturnPos(nterm, a)] != -1){
-					x = prod[ReturnPos(nterm, a)][0];
+					x = prod[predic[ReturnPos(term, x)][ReturnPos(nterm, a)]][0];
+					for(int y = 0; y < prod[predic[ReturnPos(term, x)][ReturnPos(nterm, a)]].length; y++){
+						s.Push(prod[predic[ReturnPos(term, x)][ReturnPos(nterm, a)]][y]);
+					}
+				}else{
+					System.out.println("Syntax Error");
 				}
 			}else{
 				if(x == a){
 					s.Pop();
+					a = s.Read();
 				}else{
 					System.out.println("Syntax Error");
 				}
