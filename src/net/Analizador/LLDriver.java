@@ -22,7 +22,7 @@ public class LLDriver {
 		{-1,-1,-1,-1,-1,1-1,-1,13,-1,16,-1,-1,-1},
 		{-1,2,3,7,-1,-1,-1,-1,-1,-1,-1,-1,-1},
 		{-1,-1,-1,-1,-1,-1,11,-1,14,-1,19,-1,-1},
-		{-1,-1,-1,-1,-1,-1,-1,-1,-1,15,-1,2-1,-1},
+		{-1,-1,-1,-1,-1,-1,-1,-1,-1,15,-1, 20,-1},
 		{-1,-1,-1,-1,-1,-1,-1,-1,-1,15,-1,15,-1},
 		{-1,-1,-1,-1,-1,-1,-1,-1,14,-1,22,-1,-1},
 		{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}};
@@ -39,15 +39,15 @@ public class LLDriver {
 	}
 	
 	public void Procedure(){
-		int Pos;
 		s.Push(SymbolInit());
 		x = s.Read();
 		a = AU.getToken();
 		while(!s.isEmpty()){
 			if(inNoTerminals(x)){
-				System.out.println(ReturnPos(nterm, x));
-				System.out.println(ReturnPos(term, a));
-				Pos = predic[ReturnPos(term, a)][ReturnPos(nterm, x)];
+				System.out.println(a+":"+ReturnPos(term, a));
+				System.out.println(x+": "+ReturnPos(nterm, x));
+				System.out.println("Prod: "+predic[ReturnPos(term, a)][ReturnPos(nterm, x)]);
+				System.out.println("\n");
 				if(predic[ReturnPos(term, a)][ReturnPos(nterm, x)] != -1){
 					s.Pop();
 					for(int y = prod[predic[ReturnPos(term, a)][ReturnPos(nterm, x)]].length-1; y >= 0 ; y--){
@@ -56,6 +56,7 @@ public class LLDriver {
 					x = prod[predic[ReturnPos(term, a)][ReturnPos(nterm, x)]][0];
 				}else{
 					System.out.println("Syntax Error");
+					break;
 				}
 			}else{
 				if(x.equalsIgnoreCase(a)){
@@ -64,6 +65,7 @@ public class LLDriver {
 					x = s.Read();
 				}else{
 					System.out.println("Syntax Error");
+					break;
 				}
 			}
 		}
@@ -116,8 +118,8 @@ public class LLDriver {
 	
 	public static void main(String[] mr){
 		LLDriver lld = new LLDriver();
-		System.out.println(lld.ReturnPos(lld.nterm, "system_goal"));
-		System.out.println(lld.prod[22][0]);
+//		System.out.println(lld.ReturnPos(lld.nterm, "system_goal"));
+//		System.out.println(lld.prod[22][0]);
 	}
 	
 }

@@ -45,7 +45,7 @@ public class Gramatica {
 			}
 		}
 		
-		if(fl && a != ""){
+		if(fl && a != "" && !a.equals("expr")){
 			ce++;
 			aux = new String[ce];
 			for(int y = 0; y < term.length; y++){
@@ -229,6 +229,6 @@ public class Gramatica {
 		g.PrintArray(g.term);
 		g.PrintArray(g.noterm);
 		g.PrintBArray(g.prod);
-		g.PrintBArray(g.prodCo);
+//		g.PrintBArray(g.prodCo);
 	}
 }
