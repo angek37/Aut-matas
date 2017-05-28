@@ -194,7 +194,15 @@ public class Gramatica {
 	}
 	
 	public String[][] getRightProductions(){
-		return prod;
+		String[][] aux = new String[prod.length+1][0];
+		for(int x = 0; x < prod.length; x++){
+			aux[x+1] = new String[prod[x].length];
+			for(int y = 0; y < prod[x].length; y++){
+				aux[x+1][y] = prod[x][y];
+			}
+		}
+		prod = null;
+		return aux;
 	}
 	
 	public String[][] getProductions(){

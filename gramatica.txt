@@ -17,7 +17,7 @@ primary_tail >
 primary > ( expression )
 primary > id
 primary > intLiteral
-primary > RealNum
 addop > +
 addop > -
+primary > RealNum
 system_goal > program $

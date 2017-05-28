@@ -12,7 +12,7 @@ public class LLDriver {
 	private String a;
 	private Automata AU = new Automata();
 	private int[][] predic = 
-		{{1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,22}, 
+		{{1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,23}, 
 		{-1,-1,4,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
 		{-1,2,3,5,8,-1,11,-1,14,-1,18,-1,-1},
 		{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
@@ -24,7 +24,7 @@ public class LLDriver {
 		{-1,-1,-1,-1,-1,-1,11,-1,14,-1,19,-1,-1},
 		{-1,-1,-1,-1,-1,-1,-1,-1,-1,15,-1,2-1,-1},
 		{-1,-1,-1,-1,-1,-1,-1,-1,-1,15,-1,15,-1},
-		{-1,-1,-1,-1,-1,-1,-1,-1,14,-1,23,-1,-1},
+		{-1,-1,-1,-1,-1,-1,-1,-1,14,-1,22,-1,-1},
 		{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}};
 	
 	
@@ -49,18 +49,19 @@ public class LLDriver {
 				System.out.println(ReturnPos(term, a));
 				Pos = predic[ReturnPos(term, a)][ReturnPos(nterm, x)];
 				if(predic[ReturnPos(term, a)][ReturnPos(nterm, x)] != -1){
-					x = prod[predic[ReturnPos(term, a)][ReturnPos(nterm, x)]][0];
 					s.Pop();
-					for(int y = 0; y < prod[predic[ReturnPos(term, a)][ReturnPos(nterm, x)]].length; y++){
+					for(int y = prod[predic[ReturnPos(term, a)][ReturnPos(nterm, x)]].length-1; y >= 0 ; y--){
 						s.Push(prod[predic[ReturnPos(term, a)][ReturnPos(nterm, x)]][y]);
 					}
+					x = prod[predic[ReturnPos(term, a)][ReturnPos(nterm, x)]][0];
 				}else{
 					System.out.println("Syntax Error");
 				}
 			}else{
 				if(x.equalsIgnoreCase(a)){
 					s.Pop();
-					a = s.Read();
+					a = AU.getToken();
+					x = s.Read();
 				}else{
 					System.out.println("Syntax Error");
 				}
