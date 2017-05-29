@@ -13,13 +13,15 @@ public class Stack {
     	Nodo nuevo;
         nuevo = new Nodo();
         nuevo.info = x;
-        if (raiz==null){
-            nuevo.sig = null;
-            raiz = nuevo;
-        }
-        else{
-            nuevo.sig = raiz;
-            raiz = nuevo;
+        if(x != ""){
+        	if (raiz==null){
+                nuevo.sig = null;
+                raiz = nuevo;
+            }
+            else{
+                nuevo.sig = raiz;
+                raiz = nuevo;
+            }
         }
     }
     

@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 public class Automata {
 	
 	static char[] cad;
-	static char[] car = {':','=','+','-','(',')',';'};
+	static char[] car = {':','=','+','-','(',')',';', '$'};
 	int fi = 0;
 	int ini = 0;
 	boolean tipstd = false;

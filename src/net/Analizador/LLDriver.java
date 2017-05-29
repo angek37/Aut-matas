@@ -59,7 +59,7 @@ public class LLDriver {
 					break;
 				}
 			}else{
-				if(x.equalsIgnoreCase(a)){
+				if(x.equalsIgnoreCase(a) || x.equals("")){
 					s.Pop();
 					a = AU.getToken();
 					x = s.Read();
